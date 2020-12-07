@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Queue;
 
 public class EventsStatisticImpl implements EventsStatistic {
-    private static final double MINUTE_IN_SEC = 60.;
+    public static final double MINUTE_IN_SEC = 60.;
     private static final int MILLIS_IN_HOUR = 60 * 60 * 1000;
     private Map<String, Queue<Long>> events = new HashMap<>();
     private Clock clock;

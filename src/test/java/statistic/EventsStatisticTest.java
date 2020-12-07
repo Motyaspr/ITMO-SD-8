@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.time.Duration;
 import java.time.Instant;
 
+import static statistic.EventsStatisticImpl.MINUTE_IN_SEC;
+
 public class EventsStatisticTest {
     private static final double EPS = 1e-8;
 
@@ -26,9 +28,9 @@ public class EventsStatisticTest {
             eventsStatistic.incEvent("Third Event");
         }
 
-        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("First Event") - 120 / 60.) <= EPS);
-        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("Second Event") - 10 / 60.) <= EPS);
-        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("Third Event") - 5 / 60.) <= EPS);
+        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("First Event") - 120 / MINUTE_IN_SEC) <= EPS);
+        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("Second Event") - 10 / MINUTE_IN_SEC) <= EPS);
+        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("Third Event") - 5 / MINUTE_IN_SEC) <= EPS);
 
         ((clock.SetableClock) clock).setNow(Instant.now().plus(Duration.ofHours(1)).plus(Duration.ofMinutes(1)));
 
@@ -38,6 +40,6 @@ public class EventsStatisticTest {
 
         Assert.assertEquals(0, eventsStatistic.getEventStatisticByName("First Event"), EPS);
         Assert.assertEquals(0, eventsStatistic.getEventStatisticByName("Second Event"), EPS);
-        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("Third Event") - 8 / 60.) <= EPS);
+        Assert.assertTrue(Math.abs(eventsStatistic.getEventStatisticByName("Third Event") - 8 / MINUTE_IN_SEC) <= EPS);
     }
 }
